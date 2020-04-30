@@ -14,7 +14,7 @@ provider "aws" {
 }
 
 #-----------------------------
-# Austo Scaling Group
+# Austo Scaling Group -- attach to ELB here
 #-----------------------------
 
 resource "aws_autoscaling_group" "rt_infra_asg" {
@@ -23,9 +23,9 @@ resource "aws_autoscaling_group" "rt_infra_asg" {
   min_size             = var.min_size
   launch_configuration = aws_launch_configuration.rt_infra_lc.id
   vpc_zone_identifier  = var.vpc_zone_identifier
-  # min_elb_capacity = "1"
-  # load_balancers = [aws_lb.rt_infra_elb.name]
-  # health_check_type = "ELB"
+  load_balancers       = [aws_elb.rt_infra_elb.name]
+  health_check_type    = "ELB"
+  min_elb_capacity     = "1"
 }
 
 #-----------------------------
@@ -77,28 +77,22 @@ resource "aws_security_group_rule" "rt_infra_sg_egress" {
 # # Elastic Load Balancer
 # #-----------------------------
 
-# resource "aws_lb" "rt_infra_elb" {
-#   name               = "rt-infra-elb"
-#   internal           = false
-#   load_balancer_type = "application"
-#   security_groups    = [aws_security_group.rt_infra_sg.id]
-#   subnets            = var.vpc_zone_identifier
-#   availability_zones = [data.aws_availability_zones.all.names]
-# }
-
-# resource "aws_lb_target_group_attachment" "test" {
-#   target_group_arn = aws_lb_target_group.rt_infra_tg.arn
-#   target_id        = "${aws_instance.test.id}"
-#   port             = 80
-# }
-
-# #-----------------------------
-# # Target Group
-# #-----------------------------
-
-# resource "aws_lb_target_group" "rt_infra_tg" {
-#   name     = "rt-infra-lb-tg"
-#   port     = 80
-#   protocol = "HTTP"
-#   vpc_id   = var.vpc_id
-# }
+resource "aws_elb" "rt_infra_elb" {
+  name            = "rt-infra-elb"
+  internal        = false
+  security_groups = [aws_security_group.rt_infra_sg.id]
+  subnets         = var.vpc_zone_identifier
+  listener {
+    instance_port     = 80
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
+  }
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 5
+    target              = "HTTP:80/"
+    interval            = 30
+  }
+}

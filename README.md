@@ -4,7 +4,6 @@ To run, clone repo and supply
 
 - AWS Access Key and AWS Secret Key.
 - VPC ID
-- List of Subnets within VPC
 
 Edit or pass any other variables desired
 
@@ -26,6 +25,7 @@ Edit or pass any other variables desired
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | asg\_name | Name of ASG | `string` | `"rt-infra-asg"` | no |
+| availability\_zones | Availabilitiy zones to be used | `list` | <pre>[<br>  "us-west-2a",<br>  "us-west-2b",<br>  "us-west-2c"<br>]</pre> | no |
 | aws\_access\_key | Access key to authenticate to aws account | `any` | n/a | yes |
 | aws\_secret\_key | Secret key to authenticate to aws account | `any` | n/a | yes |
 | image\_id | ID of image to use for instances | `string` | `"ami-0d6621c01e8c2de2c"` | no |
@@ -35,9 +35,7 @@ Edit or pass any other variables desired
 | min\_size | Min amount of instances desired | `string` | `"1"` | no |
 | region | Region to place infrastructure | `string` | `"us-west-2"` | no |
 | sg\_name | Security Group Name | `string` | `"RT Infra SG"` | no |
-| subnet\_cidr | CIDR of subnet to deploy infra into | `any` | n/a | yes |
 | vpc\_id | VPC ID to deploy infrastructure into | `any` | n/a | yes |
-| vpc\_zone\_identifier | Subnet IDs of VPC where instances will be desploy | `any` | n/a | yes |
 
 ## Outputs
 

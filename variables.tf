@@ -53,10 +53,7 @@ variable "vpc_id" {
   description = "VPC ID to deploy infrastructure into"
 }
 
-variable "subnet_cidr" {
-  description = "CIDR of subnet to deploy infra into"
-}
-
-variable "vpc_zone_identifier" {
-  description = "Subnet IDs of VPC where instances will be desploy"
+variable "availability_zones" {
+  description = "Availabilitiy zones to be used"
+  default     = ["us-west-2a", "us-west-2b", "us-west-2c"]
 }

@@ -22,7 +22,7 @@ resource "aws_autoscaling_group" "rt_infra_asg" {
   max_size             = var.max_size
   min_size             = var.min_size
   launch_configuration = aws_launch_configuration.rt_infra_lc.id
-  vpc_zone_identifier  = var.vpc_zone_identifier
+  availability_zones   = var.availability_zones
   load_balancers       = [aws_elb.rt_infra_elb.name]
   health_check_type    = "ELB"
   min_elb_capacity     = "1"
@@ -78,10 +78,10 @@ resource "aws_security_group_rule" "rt_infra_sg_egress" {
 # #-----------------------------
 
 resource "aws_elb" "rt_infra_elb" {
-  name            = "rt-infra-elb"
-  internal        = false
-  security_groups = [aws_security_group.rt_infra_sg.id]
-  subnets         = var.vpc_zone_identifier
+  name               = "rt-infra-elb"
+  internal           = false
+  security_groups    = [aws_security_group.rt_infra_sg.id]
+  availability_zones = var.availability_zones
   listener {
     instance_port     = 80
     instance_protocol = "http"

@@ -8,6 +8,7 @@ To run, clone repo and supply
 
 Edit or pass any other variables desired
 
+
 ## Requirements
 
 | Name | Version |
@@ -35,9 +36,9 @@ Edit or pass any other variables desired
 | min\_size | Min amount of instances desired | `string` | `"1"` | no |
 | region | Region to place infrastructure | `string` | `"us-west-2"` | no |
 | sg\_name | Security Group Name | `string` | `"RT Infra SG"` | no |
-| subnet\_cidr | CIDR of subnet to deploy infra into | `string` | `"172.31.0.0/16"` | no |
-| vpc\_id | VPC ID to deploy infrastructure into | `string` | `"vpc-44006f3c"` | no |
-| vpc\_zone\_identifier | Subnet IDs of VPC where instances will be desploy | `list` | <pre>[<br>  "subnet-bfd6ccf4",<br>  "subnet-909eddbb",<br>  "subnet-7bcc0726",<br>  "subnet-5645bc2e"<br>]</pre> | no |
+| subnet\_cidr | CIDR of subnet to deploy infra into | `any` | n/a | yes |
+| vpc\_id | VPC ID to deploy infrastructure into | `any` | n/a | yes |
+| vpc\_zone\_identifier | Subnet IDs of VPC where instances will be desploy | `any` | n/a | yes |
 
 ## Outputs
 

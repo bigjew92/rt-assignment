@@ -8,7 +8,6 @@ To run, clone repo and supply
 
 Edit or pass any other variables desired
 
-
 ## Requirements
 
 | Name | Version |
@@ -44,5 +43,5 @@ Edit or pass any other variables desired
 
 | Name | Description |
 |------|-------------|
-| rt\_infra\_sg\_id | n/a |
+| rt\_infra\_elb\_dns\_name | DNS name of ELB |
 

@@ -25,7 +25,7 @@ resource "aws_autoscaling_group" "rt_infra_asg" {
   availability_zones   = var.availability_zones
   load_balancers       = [aws_elb.rt_infra_elb.name]
   health_check_type    = "ELB"
-  min_elb_capacity     = "1"
+  min_elb_capacity     = var.min_size
 }
 
 #-----------------------------

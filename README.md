@@ -1,17 +1,16 @@
 # Rooster Teeth Infrastructure Assignment
 
-To run, clone repo and supply
+## Purpose
 
-- AWS Access Key and AWS Secret Key.
-- VPC ID
+The prupose of this project is to "Launch an auto-scaled service in Amazon's Virtual Private Cloud." The infrastructure behind this includes an Autoscaling Group, a Launch Configuration, a Security Group, and an Elastic Load Balancer. 
 
-Edit or pass any other variables desired
+This service is provisioned with a simple HTML page backed by nginx. If an instance in the autoscaling group is terminated or goes down for whatever reason, a new instance will be put in its place. There is a monitor to check the CPU Utilization of the instances periodically. If this check finds that an instance is using above 40% of CPU, it will spin up a new instance. Once the CPU utilization goes down, the new instances created to help take some of the load will also be shut down.
 
 ## Usage
 
 To use please clone repository. There are a few different way in which this can be run. 
 
-1. Supply a `.tfvars` file with the following (preferred method):
+1. Supply a `.tfvars` file with the following (preferred method to keep sensitive data private):
  - aws\_access_key
  - aws\_secret_key
  - vpc_id
@@ -34,8 +33,6 @@ terraform apply \
     -var 'aws_secret_key=AWS_SECRET_KEY' \
     -var 'vpc_id=VPC_ID'
 ```
-
-This should go through and create the service within the AWS Account the keys have access to. Feel free to override any of the variables listed below. 
 
 ## Requirements
 
@@ -61,10 +58,11 @@ This should go through and create the service within the AWS Account the keys ha
 | image\_id | ID of image to use for instances | `string` | `"ami-0d6621c01e8c2de2c"` | no |
 | instance\_type | Type of instance to use | `string` | `"t2.micro"` | no |
 | lc\_name | Name of Launch Config | `string` | `"rt-infra-lc"` | no |
-| max\_size | Max amount of instances desired | `string` | `"1"` | no |
-| min\_size | Min amount of instances desired | `string` | `"1"` | no |
+| max\_size | Max amount of instances desired | `string` | `"4"` | no |
+| min\_size | Min amount of instances desired | `string` | `"2"` | no |
 | region | Region to place infrastructure | `string` | `"us-west-2"` | no |
 | sg\_name | Security Group Name | `string` | `"RT Infra SG"` | no |
+| tags | Default tags to have on pieces of infrastructure | `list` | <pre>[<br>  {<br>    "key": "environment",<br>    "propagate_at_launch": true,<br>    "value": "dev"<br>  },<br>  {<br>    "key": "project",<br>    "propagate_at_launch": true,<br>    "value": "rt_infrastructure_assignment"<br>  },<br>  {<br>    "key": "creator",<br>    "propagate_at_launch": true,<br>    "value": "alex_simon"<br>  },<br>  {<br>    "key": "requestor",<br>    "propagate_at_launch": true,<br>    "value": "ben_and_dehron"<br>  }<br>]</pre> | no |
 | vpc\_id | VPC ID to deploy infrastructure into | `any` | n/a | yes |
 
 ## Outputs

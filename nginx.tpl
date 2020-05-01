@@ -9,4 +9,4 @@ wget http://s3.amazonaws.com/ec2metadata/ec2-metadata
 chmod u+x ec2-metadata
 instance=$(./ec2-metadata -i)
 
-echo "<h1>Hello Rooster Teeth!</h1> <h2>Currently on $instance</h2>" | sudo tee /usr/share/nginx/html/index.html
+echo "<center><h1>Hello!</h1> <img src="https://www.kindpng.com/picc/b/410/4108982.png"> <h2>Currently on $instance</h2></center>" | sudo tee /usr/share/nginx/html/index.html

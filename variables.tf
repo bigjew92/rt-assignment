@@ -57,3 +57,29 @@ variable "availability_zones" {
   description = "Availabilitiy zones to be used"
   default     = ["us-west-2a", "us-west-2b", "us-west-2c"]
 }
+
+variable "tags"{
+  description = "Default tags to have on pieces of infrastructure"
+  default = [
+    {
+      key = "environment" 
+      value ="dev"
+      propagate_at_launch = true
+    },
+    {
+      key = "project" 
+      value ="rt_infrastructure_assignment"
+      propagate_at_launch = true
+    },
+    {
+      key = "creator" 
+      value ="alex_simon"
+      propagate_at_launch = true
+    },
+    {
+      key = "requestor" 
+      value ="ben_and_dehron"
+      propagate_at_launch = true
+    },
+  ]
+}

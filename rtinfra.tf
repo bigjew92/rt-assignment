@@ -14,8 +14,21 @@ provider "aws" {
 }
 
 #-----------------------------
-# Austo Scaling Group -- attach to ELB here
+# Austo Scaling Group
 #-----------------------------
+
+resource "aws_autoscaling_policy" "rt_infra_policy" {
+  name                   = "rt-infra-asg-policy"
+  policy_type            = "TargetTrackingScaling"
+  autoscaling_group_name = aws_autoscaling_group.rt_infra_asg.name
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value = 40.0
+  }
+}
 
 resource "aws_autoscaling_group" "rt_infra_asg" {
   name                 = var.asg_name
@@ -26,6 +39,7 @@ resource "aws_autoscaling_group" "rt_infra_asg" {
   load_balancers       = [aws_elb.rt_infra_elb.name]
   health_check_type    = "ELB"
   min_elb_capacity     = var.min_size
+  tags = var.tags[*]
 }
 
 #-----------------------------

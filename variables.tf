@@ -21,12 +21,12 @@ variable "asg_name" {
 
 variable "max_size" {
   description = "Max amount of instances desired"
-  default     = "1"
+  default     = "4"
 }
 
 variable "min_size" {
   description = "Min amount of instances desired"
-  default     = "1"
+  default     = "2"
 }
 
 variable "lc_name" {

@@ -7,6 +7,36 @@ To run, clone repo and supply
 
 Edit or pass any other variables desired
 
+## Usage
+
+To use please clone repository. There are a few different way in which this can be run. 
+
+1. Supply a `.tfvars` file with the following (preferred method):
+ - aws\_access_key
+ - aws\_secret_key
+ - vpc_id
+
+Run the following:
+```bash
+terraform apply
+```
+
+
+2. Supply the following via command line arguments:
+ - aws\_access_key
+ - aws\_secret_key
+ - vpc_id
+
+Run the following:
+```bash
+terraform apply \
+    -var 'aws_access_key=AWS_ACCESS_KEY' \
+    -var 'aws_secret_key=AWS_SECRET_KEY' \
+    -var 'vpc_id=VPC_ID'
+```
+
+This should go through and create the service within the AWS Account the keys have access to. Feel free to override any of the variables listed below. 
+
 ## Requirements
 
 | Name | Version |

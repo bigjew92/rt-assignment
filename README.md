@@ -10,7 +10,15 @@ This service is provisioned with a simple HTML page backed by nginx. If an insta
 
 ### Creating resources
 
-To use please clone repository. There are a few different way in which this can be run. 
+To use please clone repository. 
+
+Initialize the directory with the following command:
+
+```bash
+terraform init
+```
+
+There are a few different way in which this can be run. 
 
 1. Supply a `.tfvars` file with the following (preferred method to keep sensitive data private):
  - aws\_access_key

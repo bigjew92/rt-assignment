@@ -8,6 +8,8 @@ This service is provisioned with a simple HTML page backed by nginx. If an insta
 
 ## Usage
 
+### Creating resources
+
 To use please clone repository. There are a few different way in which this can be run. 
 
 1. Supply a `.tfvars` file with the following (preferred method to keep sensitive data private):
@@ -32,6 +34,10 @@ terraform apply \
     -var 'aws_access_key=AWS_ACCESS_KEY' \
     -var 'aws_secret_key=AWS_SECRET_KEY' \
     -var 'vpc_id=VPC_ID'
+```
+### Destroying resources
+```bash
+terraform destroy
 ```
 
 ## Requirements
